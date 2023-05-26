@@ -67,13 +67,71 @@ public:
 
 };
 
+class Worker {
+private:
+	std::string _name;
+	int _age;
+	float _bill;
+
+
+public:
+	Worker(std::string name, int age) : _name(name), _age(age), _bill(0) {}
+
+	std::string GetName() {
+		return _name;
+	}
+
+	int GetAge() {
+		return _age;
+	}
+
+	float GetBill() {
+		return _bill;
+	}
+
+	virtual void Work() = 0;	// Чистая виртуальная функция
+	void Bill(int hoursOfWork) {
+		_bill = 250 * hoursOfWork;
+		std::cout << "Salary: " << _bill << std::endl;
+	}
+
+};
+
+class Buyer : public Worker {
+
+public:
+	Buyer(std::string name, int age) : Worker(name, age) {}
+
+	void Work() override {
+		std::cout << Worker::GetName() << " buying something" << std::endl;
+	}
+};
+
+class Bilder : public Worker {
+
+public:
+	Bilder(std::string name, int age) : Worker(name, age) {}
+
+	void Work() override {
+		std::cout << Worker::GetName() << " bilding\
+ something." << std::endl;
+	}
+};
+
 
 int main() {
-	std::vector<int> marks = { 5, 4, 3, 2 };
+	/*std::vector<int> marks = { 5, 4, 3, 2 };
 	Professor p("Instein", 56, "doctor");
 	Student s("Mak", 43, marks);
 	p.ShowData();
-	s.ShowData();
+	s.ShowData();*/
+
+	Buyer buyer("Joe", 35);
+	Bilder bilder("Donald", 34);
+	buyer.Work();
+	bilder.Work();
+	buyer.Bill(24);
+	bilder.Bill(25);
 
 
 	return 0;
